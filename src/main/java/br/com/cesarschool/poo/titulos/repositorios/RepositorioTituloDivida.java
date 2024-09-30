@@ -27,15 +27,19 @@ import br.com.cesarschool.poo.titulos.entidades.Acao;
  */
 public class RepositorioTituloDivida {
 	public boolean incluir(TituloDivida tituloDivida) {
+
 		return false;
 	}
 	public boolean alterar(TituloDivida tituloDivida) {
+
 		return false;
 	}
 	public boolean excluir(int identificador) {
+
 		return false;
 	}
 	public Acao buscar(int identificador) {
+
 		return null;
 	}
 }

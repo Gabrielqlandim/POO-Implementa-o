@@ -23,6 +23,7 @@ public class RepositorioTransacao {
 		
 	}
 	public Transacao[] buscarPorEntidadeCredora(int identificadorEntidadeCredito) {
+
 		return null;
 	}
 }
