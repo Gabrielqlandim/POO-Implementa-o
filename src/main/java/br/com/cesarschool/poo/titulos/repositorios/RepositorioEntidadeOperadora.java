@@ -67,7 +67,7 @@ public class RepositorioEntidadeOperadora {
 
                 String[] dados = linha.split(";");
                 if(dados[0].equals(String.valueOf(acao.getIdentificador()))){
-                    linhasNovas.add(acao.toString());
+                    linhasNovas.add(acao.getIdentificador() + ";" + acao.getNome() + ";" + acao.getDataDeValidade() + ";" + acao.getValorUnitario());
                     troca = true;
                 }else{
                     linhasNovas.add(linha);

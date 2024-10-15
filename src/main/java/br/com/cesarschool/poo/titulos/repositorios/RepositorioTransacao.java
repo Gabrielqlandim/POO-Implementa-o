@@ -1,6 +1,9 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
 import br.com.cesarschool.poo.titulos.entidades.Transacao;
+
+import java.io.*;
+import java.nio.file.*;
 /*
  * Deve gravar em e ler de um arquivo texto chamado Transacao.txt os dados dos objetos do tipo
  * Transacao. Seguem abaixo exemplos de linhas 
@@ -19,11 +22,11 @@ import br.com.cesarschool.poo.titulos.entidades.Transacao;
  * recebido como par�metro.  
  */
 public class RepositorioTransacao {
-	
+	Path arquivo = Paths.get("Transacao.txt");
 	public boolean incluir(Transacao transacao) {
 		
 		try(BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo.toFile(), true))){
-			writer.write(transacao.getEntidadeCredito().getIdentificador() + ";" + transacao.getEntidadeCredito().getNome() + ";" + transacao.getEntidadeCredito().getAutorizadoAcao() + ";" + transacao.getEntidadeCredito().getSaldoAcao() + ";" + transacao.getEntidadeCredito().getTituloDivida() + ";" + transacao.getEntidadeCredito().getIdentificador() + ";" + transacao.getEntidadeCredito().getNome() + ";" + transacao.getEntidadeCredito().getAutorizadoAcao() + ";" + transacao.getEntidadeCredito().getSaldoAcao() + ";" + transacao.getEntidadeCredito().getSaldoTituloDivida() + ";" + transacao.getacao().getIdentificador() + ";" + transacao.getacao().getNome() + ";" + transacao.getacao().getDataValidade() + ";" + transacao.getacao().getValorUnitario() + ";" + transacao.getTituloDivida().getIdentificador() + ";" + transacao.getTituloDivida().getNome() + ";" + transacao.getTituloDivida().getDataValidade() + ";" + transacao.getTituloDivida().getTaxaJuros() + ";" + transacao.getValorOperacao() + ";" + transacao.getDataHoraOperacao());
+			writer.write(transacao.getEntidadeCredito().getIdentificador() + ";" + transacao.getEntidadeCredito().getNome() + ";" + transacao.getEntidadeCredito().getAutorizadoAcao() + ";" + transacao.getEntidadeCredito().getSaldoAcao() + ";" + transacao.getEntidadeCredito().getSaldoTituloDivida() + ";" + transacao.getEntidadeDebito().getIdentificador() + ";" + transacao.getEntidadeDebito().getNome() + ";" + transacao.getEntidadeDebito().getAutorizadoAcao() + ";" + transacao.getEntidadeDebito().getSaldoAcao() + ";" + transacao.getEntidadeDebito().getSaldoTituloDivida() + ";" + transacao.getAcao().getIdentificador() + ";" + transacao.getAcao().getNome() + ";" + transacao.getAcao().getDataDeValidade() + ";" + transacao.getAcao().getValorUnitario() + ";" + transacao.getTituloDivida().getIdentificador() + ";" + transacao.getTituloDivida().getNome() + ";" + transacao.getTituloDivida().getDataDeValidade() + ";" + transacao.getTituloDivida().getTaxaJuros() + ";" + transacao.getValorOperacao() + ";" + transacao.getDataHoraOperacao());
 			writer.newLine();
 			return  true;
 			

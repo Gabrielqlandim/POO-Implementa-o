@@ -67,7 +67,7 @@ public class RepositorioTituloDivida {
 
 				String[] dados = linha.split(";");
 				if(dados[0].equals(String.valueOf(tituloDivida.getIdentificador()))){
-					linhasNovas.add(tituloDivida.toString());
+					linhasNovas.add(tituloDivida.getIdentificador() + ";" + tituloDivida.getNome() + ";" + tituloDivida.getDataDeValidade() + ";" + tituloDivida.getTaxaJuros());
 					troca = true;
 				}else{
 					linhasNovas.add(linha);
