@@ -1,9 +1,18 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
+import br.com.cesarschool.poo.titulos.entidades.Acao;
+import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
+import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import br.com.cesarschool.poo.titulos.entidades.Transacao;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.nio.file.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * Deve gravar em e ler de um arquivo texto chamado Transacao.txt os dados dos objetos do tipo
  * Transacao. Seguem abaixo exemplos de linhas 
@@ -35,7 +44,31 @@ public class RepositorioTransacao {
 		}
 	}
 	public Transacao[] buscarPorEntidadeCredora(int identificadorEntidadeCredito) {
+		Transacao[] transacoes = new Transacao[1000];
+		int cont = 0;
+		try(BufferedReader reader = new BufferedReader((new FileReader(arquivo.toFile())))){
+			String linha;
+			while((linha = reader.readLine()) != null){
 
+				String[] dados = linha.split(";");
+
+				Acao acao = RepositorioAcao.buscar(Integer.parseInt(dados[10]));
+				TituloDivida tituloDivida = RepositorioTituloDivida.buscar(Integer.parseInt(dados[14]));
+				EntidadeOperadora entidadeDebito = RepositorioEntidadeOperadora.buscar(Long.parseLong(dados[5]));
+				EntidadeOperadora entidadeCredito = RepositorioEntidadeOperadora.buscar(Long.parseLong(dados[0]));
+				Transacao transacao = new Transacao(entidadeCredito, entidadeDebito,acao, tituloDivida, Double.parseDouble(dados[18]), LocalDateTime.parse(dados[19]));
+
+
+				if(transacao.getEntidadeCredito().getIdentificador() == identificadorEntidadeCredito){
+					transacoes[cont] = transacao;
+					cont++;
+				}
+			}
+			return transacoes;
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }

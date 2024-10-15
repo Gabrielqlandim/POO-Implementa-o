@@ -1,6 +1,7 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
 import br.com.cesarschool.poo.titulos.entidades.Acao;
+import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -33,13 +34,13 @@ import java.util.List;
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.   
  */
 public class RepositorioEntidadeOperadora {
-    Path arquivo = Paths.get("Acao.txt");
-    public boolean incluir(Acao acao) {
+   static Path arquivo = Paths.get("EntidadeOperacao.txt");
+    public boolean incluir(EntidadeOperadora entidadeOperadora) {
         try(BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))){
             String linha;
             while((linha = reader.readLine()) != null){
                 String[] dados = linha.split(";");
-                if(dados[0].equals(String.valueOf(acao.getIdentificador()))){
+                if(dados[0].equals(String.valueOf(entidadeOperadora.getIdentificador()))){
                     return false;
                 }
             }
@@ -48,7 +49,7 @@ public class RepositorioEntidadeOperadora {
         }
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo.toFile(), true))){
-            writer.write(acao.getIdentificador() + ";" + acao.getNome() + ";" + acao.getDataDeValidade() + ";" + acao.getValorUnitario());
+            writer.write(entidadeOperadora.getIdentificador() + ";" + entidadeOperadora.getNome() + ";" + entidadeOperadora.getAutorizadoAcao());
             writer.newLine();
             return  true;
         } catch (IOException e) {
@@ -58,7 +59,7 @@ public class RepositorioEntidadeOperadora {
 
 
 
-    public boolean alterar(Acao acao) {
+    public boolean alterar(EntidadeOperadora entidadeOperadora) {
         List<String> linhasNovas = new ArrayList<>();
         boolean troca = false;
         try(BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))){
@@ -66,8 +67,8 @@ public class RepositorioEntidadeOperadora {
             while((linha = reader.readLine()) != null){
 
                 String[] dados = linha.split(";");
-                if(dados[0].equals(String.valueOf(acao.getIdentificador()))){
-                    linhasNovas.add(acao.getIdentificador() + ";" + acao.getNome() + ";" + acao.getDataDeValidade() + ";" + acao.getValorUnitario());
+                if(dados[0].equals(String.valueOf(entidadeOperadora.getIdentificador()))){
+                    linhasNovas.add(entidadeOperadora.getIdentificador() + ";" + entidadeOperadora.getNome() + ";" + entidadeOperadora.getAutorizadoAcao());
                     troca = true;
                 }else{
                     linhasNovas.add(linha);
@@ -127,13 +128,13 @@ public class RepositorioEntidadeOperadora {
     }
 
 
-    public Acao buscar(int identificador) {
+    public static EntidadeOperadora buscar(long identificador) {
         try(BufferedReader reader = new BufferedReader((new FileReader(arquivo.toFile())))){
             String linha;
             while((linha = reader.readLine()) != null){
                 String[] dados = linha.split(";");
                 if(dados[0].equals(String.valueOf(identificador))==true){
-                    return new Acao(Integer.parseInt(dados[0]), dados[1], LocalDate.parse(dados[2]), Double.parseDouble(dados[3]));
+                    return new EntidadeOperadora(Integer.parseInt(dados[0]), dados[1], Boolean.parseBoolean(dados[2]));
                 }
             }
         } catch (IOException e) {

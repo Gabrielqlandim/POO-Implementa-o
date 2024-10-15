@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class RepositorioTituloDivida {
 
-	Path arquivo = Paths.get("TituloDivida.txt");
+	static Path arquivo = Paths.get("TituloDivida.txt");
 	public boolean incluir(TituloDivida tituloDivida) {
 		try(BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))){
 			String linha;
@@ -122,13 +122,13 @@ public class RepositorioTituloDivida {
 			return false;
 		}
 	}
-	public Acao buscar(int identificador) {
+	public static TituloDivida buscar(int identificador) {
 		try(BufferedReader reader = new BufferedReader((new FileReader(arquivo.toFile())))){
 			String linha;
 			while((linha = reader.readLine()) != null){
 				String[] dados = linha.split(";");
 				if(dados[0].equals(String.valueOf(identificador))==true){
-					return new Acao(Integer.parseInt(dados[0]), dados[1], LocalDate.parse(dados[2]), Double.parseDouble(dados[3]));
+					return new TituloDivida(Double.parseDouble(dados[3]), Integer.parseInt(dados[0]), dados[1], LocalDate.parse(dados[2]));
 				}
 			}
 		} catch (IOException e) {
