@@ -19,8 +19,17 @@ import br.com.cesarschool.poo.titulos.entidades.Transacao;
  * recebido como par�metro.  
  */
 public class RepositorioTransacao {
-	public void incluir(Transacao transacao) {
+	
+	public boolean incluir(Transacao transacao) {
 		
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo.toFile(), true))){
+			writer.write(transacao.getEntidadeCredito().getIdentificador() + ";" + transacao.getEntidadeCredito().getNome() + ";" + transacao.getEntidadeCredito().getAutorizadoAcao() + ";" + transacao.getEntidadeCredito().getSaldoAcao() + ";" + transacao.getEntidadeCredito().getTituloDivida() + ";" + transacao.getEntidadeCredito().getIdentificador() + ";" + transacao.getEntidadeCredito().getNome() + ";" + transacao.getEntidadeCredito().getAutorizadoAcao() + ";" + transacao.getEntidadeCredito().getSaldoAcao() + ";" + transacao.getEntidadeCredito().getSaldoTituloDivida() + ";" + transacao.getacao().getIdentificador() + ";" + transacao.getacao().getNome() + ";" + transacao.getacao().getDataValidade() + ";" + transacao.getacao().getValorUnitario() + ";" + transacao.getTituloDivida().getIdentificador() + ";" + transacao.getTituloDivida().getNome() + ";" + transacao.getTituloDivida().getDataValidade() + ";" + transacao.getTituloDivida().getTaxaJuros() + ";" + transacao.getValorOperacao() + ";" + transacao.getDataHoraOperacao());
+			writer.newLine();
+			return  true;
+			
+		} catch (IOException e) {
+			return false;
+		}
 	}
 	public Transacao[] buscarPorEntidadeCredora(int identificadorEntidadeCredito) {
 
