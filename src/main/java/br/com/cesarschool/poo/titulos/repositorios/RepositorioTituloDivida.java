@@ -2,6 +2,14 @@ package br.com.cesarschool.poo.titulos.repositorios;
 
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import br.com.cesarschool.poo.titulos.entidades.Acao;
+
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * Deve gravar em e ler de um arquivo texto chamado TituloDivida.txt os dados dos objetos do tipo
  * TituloDivida. Seguem abaixo exemplos de linhas (identificador, nome, dataValidade, taxaJuros).
@@ -26,20 +34,106 @@ import br.com.cesarschool.poo.titulos.entidades.Acao;
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.   
  */
 public class RepositorioTituloDivida {
-	public boolean incluir(TituloDivida tituloDivida) {
 
-		return false;
+	Path arquivo = Paths.get("TituloDivida.txt");
+	public boolean incluir(TituloDivida tituloDivida) {
+		try(BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))){
+			String linha;
+			while((linha = reader.readLine()) != null){
+				String[] dados = linha.split(";");
+				if(dados[0].equals(String.valueOf(tituloDivida.getIdentificador()))){
+					return false;
+				}
+			}
+		}catch (IOException e){
+			return false;
+		}
+
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo.toFile(), true))){
+			writer.write(tituloDivida.getIdentificador() + ";" + tituloDivida.getNome() + ";" + tituloDivida.getDataDeValidade() + ";" + tituloDivida.getTaxaJuros());
+			writer.newLine();
+			return  true;
+		} catch (IOException e) {
+			return false;
+		}
+
 	}
 	public boolean alterar(TituloDivida tituloDivida) {
+		List<String> linhasNovas = new ArrayList<>();
+		boolean troca = false;
+		try(BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))){
+			String linha;
+			while((linha = reader.readLine()) != null){
 
-		return false;
+				String[] dados = linha.split(";");
+				if(dados[0].equals(String.valueOf(tituloDivida.getIdentificador()))){
+					linhasNovas.add(tituloDivida.toString());
+					troca = true;
+				}else{
+					linhasNovas.add(linha);
+				}
+			}
+		} catch (Exception e) {
+			return false;
+		}
+		if(troca == true){
+			try(BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivo.toFile()))){
+				for(String linha : linhasNovas){
+					escritor.write(linha);
+					escritor.newLine();
+				}
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}else{
+			return false;
+		}
 	}
 	public boolean excluir(int identificador) {
-
-		return false;
+		List<String> linhasNovas = new ArrayList<>();
+		boolean apagado = false;
+		try (BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))) {
+			String linha;
+			while ((linha = reader.readLine()) != null) {
+				String[] dados = linha.split(";");
+				if (dados[0].equals(String.valueOf(identificador)) == false) {
+					linhasNovas.add(linha);
+				}
+				else{
+					apagado = true;
+				}
+			}
+		} catch (IOException e) {
+			return false;
+		}
+		if(apagado == true){
+			try(BufferedWriter escrever = new BufferedWriter(new FileWriter(arquivo.toFile()))) {
+				for(String linha : linhasNovas){
+					escrever.write(linha);
+					escrever.newLine();
+				}
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+		else{
+			return false;
+		}
 	}
 	public Acao buscar(int identificador) {
-
+		try(BufferedReader reader = new BufferedReader((new FileReader(arquivo.toFile())))){
+			String linha;
+			while((linha = reader.readLine()) != null){
+				String[] dados = linha.split(";");
+				if(dados[0].equals(String.valueOf(identificador))==true){
+					return new Acao(Integer.parseInt(dados[0]), dados[1], LocalDate.parse(dados[2]), Double.parseDouble(dados[3]));
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }
