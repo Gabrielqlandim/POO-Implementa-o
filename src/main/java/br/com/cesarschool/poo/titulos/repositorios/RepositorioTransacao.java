@@ -71,4 +71,32 @@ public class RepositorioTransacao {
 		}
 		return null;
 	}
+	public Transacao[] buscarPorEntidadeDevedora(int identificadorEntidadeDebito){
+		Transacao[] transacoes = new Transacao[1000];
+		int cont = 0;
+		try(BufferedReader reader = new BufferedReader((new FileReader(arquivo.toFile())))){
+			String linha;
+			while((linha = reader.readLine()) != null){
+
+				String[] dados = linha.split(";");
+
+				Acao acao = RepositorioAcao.buscar(Integer.parseInt(dados[10]));
+				TituloDivida tituloDivida = RepositorioTituloDivida.buscar(Integer.parseInt(dados[14]));
+				EntidadeOperadora entidadeDebito = RepositorioEntidadeOperadora.buscar(Long.parseLong(dados[5]));
+				EntidadeOperadora entidadeCredito = RepositorioEntidadeOperadora.buscar(Long.parseLong(dados[0]));
+				Transacao transacao = new Transacao(entidadeCredito, entidadeDebito,acao, tituloDivida, Double.parseDouble(dados[18]), LocalDateTime.parse(dados[19]));
+
+
+				if(transacao.getEntidadeCredito().getIdentificador() == identificadorEntidadeDebito){
+					transacoes[cont] = transacao;
+					cont++;
+				}
+			}
+			return transacoes;
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

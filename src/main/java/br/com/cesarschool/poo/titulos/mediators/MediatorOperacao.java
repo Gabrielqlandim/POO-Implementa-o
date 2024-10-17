@@ -1,6 +1,12 @@
 package br.com.cesarschool.poo.titulos.mediators;
 
+import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.titulos.entidades.Transacao;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioTransacao;
+
+import java.util.Arrays;
+import java.util.Comparator;
 
 /*
  * Deve ser um singleton.
@@ -38,7 +44,7 @@ import br.com.cesarschool.poo.titulos.entidades.Transacao;
  * ação, retornar a mensagem "Entidade de débito não autorizada para ação"
  *
  * 6- Buscar a ação (se ehAcao for true) ou o título (se ehAcao for false)
- * no mediator de ação ou de título.
+ * no mediator de ação ou de título. "NAO ENTENDI COMO FAZ"
  *
  * 7- A depender de ehAcao, validar o saldoAcao ou o saldoTituloDivida da
  * entidade de débito. O saldo deve ser maior ou igual a valor. Se não for,
@@ -99,4 +105,62 @@ import br.com.cesarschool.poo.titulos.entidades.Transacao;
  **/
 public class MediatorOperacao {
 
+    //singleton
+    private static MediatorOperacao instanciaUnica;
+
+
+    private MediatorOperacao(){
+    }
+
+    public static  MediatorOperacao getInstance(){
+        if(instanciaUnica == null){
+            instanciaUnica = new MediatorOperacao();
+        }
+        return instanciaUnica;
+    }
+
+
+    //atributos
+
+    private MediatorAcao mediatorAcao = new MediatorAcao();
+    private MediatorTituloDivida mediatorTituloDivida = new MediatorTituloDivida();
+    private MediatorEntdadeOperadora mediatorEntdadeOperadora = new MediatorEntdadeOperadora();
+    private RepositorioTransacao repositorioTransacao = new RepositorioTransacao();
+
+    //metodos
+    public String realizarOperacao(boolean ehAcao, int entidadeCredito, int idEntidadeDebito, int idAcaoOuTitulo, double valor){
+        if(valor<= 0.0){
+            return "Valor inválido";
+        }
+        EntidadeOperadora entidadeCreditoOBJ = MediatorEntdadeOperadora.buscar(entidadeCredito);
+        if(entidadeCreditoOBJ == null){
+            return "Entidade crédito inexistente";
+        }
+        EntidadeOperadora entidadeDebito = MediatorEntdadeOperadora.buscar(idEntidadeDebito);
+        if(entidadeDebito == null){
+            return "Entidade débito inexistente";
+        }
+        if(ehAcao == true && entidadeCreditoOBJ.getAutorizadoAcao() == false){
+            return "Entidade de crédito não autorizada para ação";
+        }
+        if(ehAcao == true && entidadeDebito.getAutorizadoAcao() == false){
+            return "Entidade de débito não autorizada para ação";
+        }
+        //ainda tem outras coisas para fazer que eu nao entendi
+    }
+
+
+    public Transacao[] gerarExtrato(int entidade){
+
+        Transacao[] transCredora = repositorioTransacao.buscarPorEntidadeCredora(entidade);
+        Transacao[] transDevedora = repositorioTransacao.buscarPorEntidadeDevedora(entidade);
+
+        Transacao[] transacoes = new Transacao[transCredora.length + transDevedora.length];
+        System.arraycopy(transCredora,0,transacoes,0, transCredora.length);
+        System.arraycopy(transDevedora,0,transacoes,0,transDevedora.length);
+
+        Arrays.sort(transacoes, Comparator.comparing(Transacao::getDataHoraOperacao).reversed());
+
+        return transacoes;
+    }
 }
