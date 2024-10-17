@@ -144,7 +144,7 @@ public class MediatorTituloDivida {
             }
         }
         else{
-            return "Identificador deve estar entre 1 e 99999.";
+            return "Título inexistente.";
         }
     }
 
