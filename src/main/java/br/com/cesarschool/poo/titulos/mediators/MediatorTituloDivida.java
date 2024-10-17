@@ -1,8 +1,10 @@
 package br.com.cesarschool.poo.titulos.mediators;
 
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
-import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 
 /*
@@ -105,7 +107,7 @@ public class MediatorTituloDivida {
         return null;
     }
 
-    public String incluir(TituloDivida titulo){
+    public String incluir(TituloDivida titulo) throws FileNotFoundException, IOException {
         String mensagem = validar(titulo);
         if(mensagem == null){
             if(repositorioTituloDivida.incluir(titulo) == true){
@@ -118,7 +120,7 @@ public class MediatorTituloDivida {
         return mensagem;
     }
 
-    public String alterar(TituloDivida titulo){
+    public String alterar(TituloDivida titulo) throws IOException{
         String mensagem = validar(titulo);
         if (mensagem == null){
             if(repositorioTituloDivida.alterar(titulo) == true){
@@ -132,7 +134,7 @@ public class MediatorTituloDivida {
     }
 
 
-    public String excluir(int identificador){
+    public String excluir(int identificador) throws IOException{
         if(identificador>0 && identificador<99999){
             if(repositorioTituloDivida.excluir(identificador) == true){
                 return null;
@@ -146,7 +148,7 @@ public class MediatorTituloDivida {
         }
     }
 
-    public TituloDivida buscar(int identificador) {
+    public TituloDivida buscar(int identificador) throws IOException {
         if (identificador > 0 && identificador < 99999) {
             return repositorioTituloDivida.buscar(identificador);
         }
