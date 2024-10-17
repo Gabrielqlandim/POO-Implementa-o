@@ -102,7 +102,7 @@ public class MediatorTituloDivida {
             return "Data de validade deve ser superior a 180 dias da data atual.";
         }
         if(titulo.getTaxaJuros()<=0){
-            return "Taxa de juros deve ser maior que zero.";
+            return "Taxa de juros deve ser maior ou igual a zero.";
         }
         return null;
     }
