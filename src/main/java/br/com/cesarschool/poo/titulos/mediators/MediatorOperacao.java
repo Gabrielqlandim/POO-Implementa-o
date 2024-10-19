@@ -1,10 +1,13 @@
 package br.com.cesarschool.poo.titulos.mediators;
 
+import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
+import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import br.com.cesarschool.poo.titulos.entidades.Transacao;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTransacao;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -129,7 +132,7 @@ public class MediatorOperacao {
 
     //metodos
     public String realizarOperacao(boolean ehAcao, int entidadeCredito, int idEntidadeDebito, int idAcaoOuTitulo, double valor){
-        if(valor<= 0.0){
+        if(valor <= 0.0){
             return "Valor inválido";
         }
         EntidadeOperadora entidadeCreditoOBJ = MediatorEntdadeOperadora.buscar(entidadeCredito);
@@ -146,7 +149,63 @@ public class MediatorOperacao {
         if(ehAcao == true && entidadeDebito.getAutorizadoAcao() == false){
             return "Entidade de débito não autorizada para ação";
         }
+
         //ainda tem outras coisas para fazer que eu nao entendi
+
+        LocalDateTime data = LocalDateTime.now();
+
+        if (ehAcao) {
+            Acao acao = mediatorAcao.buscar(idAcaoOuTitulo);
+            double saldo = entidadeDebito.getSaldoAcao();
+
+            if (saldo < valor) {
+                return "Saldo da entidade débito insuficiente";
+            }
+
+            else if (acao.getValorUnitario() > valor) {
+                return "Valor da operação e menor do que o valor unitário da ação";
+            }
+
+            double valorOperacao = valor;
+
+            entidadeCreditoOBJ.creditarSaldoAcao(valorOperacao);
+            entidadeDebito.debitarSaldoAcao(valorOperacao);
+
+            Transacao transacao = new Transacao(entidadeCreditoOBJ, entidadeDebito, acao, null, valorOperacao, data);
+            repositorioTransacao.incluir(transacao);
+
+        }else{
+            TituloDivida titulo = mediatorTituloDivida.buscar(idAcaoOuTitulo);
+            double saldo = entidadeDebito.getSaldoTituloDivida();
+
+            if (saldo < valor) {
+                return "Saldo da entidade débito insuficiente";
+            }
+
+            double valorOperacao = titulo.calcularPrecoTransacao(valor);
+
+            entidadeCreditoOBJ.creditarSaldoTituloDivida(valorOperacao);
+            entidadeDebito.debitarSaldoTituloDivida(valorOperacao);
+
+            Transacao transacao = new Transacao(entidadeCreditoOBJ, entidadeDebito, null, titulo, valorOperacao, data);
+            repositorioTransacao.incluir(transacao);
+
+        }
+
+        String mensagem = mediatorEntdadeOperadora.alterar(entidadeCreditoOBJ);
+        
+        if (mensagem != null) {
+            return mensagem;
+        }
+
+        mensagem = mediatorEntdadeOperadora.alterar(entidadeDebito);
+
+        if (mensagem != null) {
+            return mensagem;
+        }
+
+
+
     }
 
 

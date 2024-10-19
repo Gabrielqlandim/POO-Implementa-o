@@ -36,16 +36,16 @@ public class EntidadeOperadora {
     //metodos
 
 
-    void creditarSaldoAcao(double valor){
+    public void creditarSaldoAcao(double valor){
         saldoAcao += valor;
     }
-    void debitarSaldoAcao(double valor){
+    public void debitarSaldoAcao(double valor){
         saldoAcao-=valor;
     }
-    void creditarSaldoTituloDivida(double valor){
+    public void creditarSaldoTituloDivida(double valor){
         saldoTituloDivida+=valor;
     }
-    void debitarSaldoTituloDivida(double valor){
+    public void debitarSaldoTituloDivida(double valor){
         saldoTituloDivida-=valor;
     }
 
