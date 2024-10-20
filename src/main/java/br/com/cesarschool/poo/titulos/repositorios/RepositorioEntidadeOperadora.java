@@ -34,7 +34,7 @@ import java.util.List;
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.   
  */
 public class RepositorioEntidadeOperadora {
-   static Path arquivo = Paths.get("EntidadeOperacao.txt");
+    Path arquivo = Paths.get("EntidadeOperacao.txt");
     public boolean incluir(EntidadeOperadora entidadeOperadora) {
         try(BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))){
             String linha;
@@ -128,7 +128,7 @@ public class RepositorioEntidadeOperadora {
     }
 
 
-    public static EntidadeOperadora buscar(long identificador) {
+    public EntidadeOperadora buscar(long identificador) {
         try(BufferedReader reader = new BufferedReader((new FileReader(arquivo.toFile())))){
             String linha;
             while((linha = reader.readLine()) != null){

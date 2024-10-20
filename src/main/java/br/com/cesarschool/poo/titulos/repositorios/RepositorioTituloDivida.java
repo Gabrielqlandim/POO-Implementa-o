@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class RepositorioTituloDivida {
 
-	static Path arquivo = Paths.get("TituloDivida.txt");
+	Path arquivo = Paths.get("TituloDivida.txt");
 	public boolean incluir(TituloDivida tituloDivida) {
 		try(BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))){
 			String linha;
@@ -122,7 +122,7 @@ public class RepositorioTituloDivida {
 			return false;
 		}
 	}
-	public static TituloDivida buscar(int identificador) {
+	public TituloDivida buscar(int identificador) {
 		try(BufferedReader reader = new BufferedReader((new FileReader(arquivo.toFile())))){
 			String linha;
 			while((linha = reader.readLine()) != null){

@@ -32,6 +32,11 @@ import java.util.List;
  */
 public class RepositorioTransacao {
 	Path arquivo = Paths.get("Transacao.txt");
+
+	private RepositorioAcao repositorioAcao = new RepositorioAcao();
+	private RepositorioTituloDivida repositorioTituloDivida = new RepositorioTituloDivida();
+	private RepositorioEntidadeOperadora repositorioEntidadeOperadora = new RepositorioEntidadeOperadora();
+
 	public boolean incluir(Transacao transacao) {
 		
 		try(BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo.toFile(), true))){
@@ -52,10 +57,10 @@ public class RepositorioTransacao {
 
 				String[] dados = linha.split(";");
 
-				Acao acao = RepositorioAcao.buscar(Integer.parseInt(dados[10]));
-				TituloDivida tituloDivida = RepositorioTituloDivida.buscar(Integer.parseInt(dados[14]));
-				EntidadeOperadora entidadeDebito = RepositorioEntidadeOperadora.buscar(Long.parseLong(dados[5]));
-				EntidadeOperadora entidadeCredito = RepositorioEntidadeOperadora.buscar(Long.parseLong(dados[0]));
+				Acao acao = repositorioAcao.buscar(Integer.parseInt(dados[10]));
+				TituloDivida tituloDivida = repositorioTituloDivida.buscar(Integer.parseInt(dados[14]));
+				EntidadeOperadora entidadeDebito = repositorioEntidadeOperadora.buscar(Long.parseLong(dados[5]));
+				EntidadeOperadora entidadeCredito = repositorioEntidadeOperadora.buscar(Long.parseLong(dados[0]));
 				Transacao transacao = new Transacao(entidadeCredito, entidadeDebito,acao, tituloDivida, Double.parseDouble(dados[18]), LocalDateTime.parse(dados[19]));
 
 
@@ -80,10 +85,10 @@ public class RepositorioTransacao {
 
 				String[] dados = linha.split(";");
 
-				Acao acao = RepositorioAcao.buscar(Integer.parseInt(dados[10]));
-				TituloDivida tituloDivida = RepositorioTituloDivida.buscar(Integer.parseInt(dados[14]));
-				EntidadeOperadora entidadeDebito = RepositorioEntidadeOperadora.buscar(Long.parseLong(dados[5]));
-				EntidadeOperadora entidadeCredito = RepositorioEntidadeOperadora.buscar(Long.parseLong(dados[0]));
+				Acao acao = repositorioAcao.buscar(Integer.parseInt(dados[10]));
+				TituloDivida tituloDivida = repositorioTituloDivida.buscar(Integer.parseInt(dados[14]));
+				EntidadeOperadora entidadeDebito = repositorioEntidadeOperadora.buscar(Long.parseLong(dados[5]));
+				EntidadeOperadora entidadeCredito = repositorioEntidadeOperadora.buscar(Long.parseLong(dados[0]));
 				Transacao transacao = new Transacao(entidadeCredito, entidadeDebito,acao, tituloDivida, Double.parseDouble(dados[18]), LocalDateTime.parse(dados[19]));
 
 

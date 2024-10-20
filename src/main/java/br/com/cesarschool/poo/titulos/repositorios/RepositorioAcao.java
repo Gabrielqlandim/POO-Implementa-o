@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class RepositorioAcao {
 
-	static Path arquivo = Paths.get("Acao.txt");
+	Path arquivo = Paths.get("Acao.txt");
 	public boolean incluir(Acao acao) {
 		try(BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))){
 			String linha;
@@ -125,7 +125,7 @@ public class RepositorioAcao {
 	}
 
 
-	public static Acao buscar(int identificador) {
+	public Acao buscar(int identificador) {
 		try(BufferedReader reader = new BufferedReader((new FileReader(arquivo.toFile())))){
 			String linha;
 			while((linha = reader.readLine()) != null){

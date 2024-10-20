@@ -7,6 +7,7 @@ import br.com.cesarschool.poo.titulos.entidades.Transacao;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTransacao;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -129,17 +130,17 @@ public class MediatorOperacao {
     private MediatorTituloDivida mediatorTituloDivida = new MediatorTituloDivida();
     private MediatorEntdadeOperadora mediatorEntdadeOperadora = new MediatorEntdadeOperadora();
     private RepositorioTransacao repositorioTransacao = new RepositorioTransacao();
-
+    private MediatorOperacao mediatorOperacao = new MediatorOperacao();
     //metodos
-    public String realizarOperacao(boolean ehAcao, int entidadeCredito, int idEntidadeDebito, int idAcaoOuTitulo, double valor){
+    public String realizarOperacao(boolean ehAcao, int entidadeCredito, int idEntidadeDebito, int idAcaoOuTitulo, double valor) throws IOException {
         if(valor <= 0.0){
             return "Valor inválido";
         }
-        EntidadeOperadora entidadeCreditoOBJ = MediatorEntdadeOperadora.buscar(entidadeCredito);
+        EntidadeOperadora entidadeCreditoOBJ = mediatorEntdadeOperadora.buscar(entidadeCredito);
         if(entidadeCreditoOBJ == null){
             return "Entidade crédito inexistente";
         }
-        EntidadeOperadora entidadeDebito = MediatorEntdadeOperadora.buscar(idEntidadeDebito);
+        EntidadeOperadora entidadeDebito = mediatorEntdadeOperadora.buscar(idEntidadeDebito);
         if(entidadeDebito == null){
             return "Entidade débito inexistente";
         }
@@ -149,8 +150,6 @@ public class MediatorOperacao {
         if(ehAcao == true && entidadeDebito.getAutorizadoAcao() == false){
             return "Entidade de débito não autorizada para ação";
         }
-
-        //ainda tem outras coisas para fazer que eu nao entendi
 
         LocalDateTime data = LocalDateTime.now();
 
@@ -193,19 +192,16 @@ public class MediatorOperacao {
         }
 
         String mensagem = mediatorEntdadeOperadora.alterar(entidadeCreditoOBJ);
-        
-        if (mensagem != null) {
-            return mensagem;
-        }
-
-        mensagem = mediatorEntdadeOperadora.alterar(entidadeDebito);
+        String mensagem2 = mediatorEntdadeOperadora.alterar(entidadeDebito);
 
         if (mensagem != null) {
             return mensagem;
         }
 
-
-
+        if (mensagem2 != null) {
+            return mensagem2;
+        }
+        return null;
     }
 
 
