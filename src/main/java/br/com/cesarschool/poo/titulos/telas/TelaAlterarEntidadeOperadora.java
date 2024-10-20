@@ -15,6 +15,7 @@ public class TelaAlterarEntidadeOperadora {
 
     private void initialize (){
         JFrame frame = new JFrame();
+        frame.setTitle("Alterar Entidade Operação");
         frame.setSize(600, 500);
         frame.setLayout(null);
 
@@ -59,8 +60,8 @@ public class TelaAlterarEntidadeOperadora {
         textFieldsaldoTituloDivida.setBounds(150, 140, 165, 25);
         frame.add(textFieldsaldoTituloDivida);
 
-        //btnIncluir
-        JButton btnAlterar = new JButton("Incluir");
+        //btnAlterar
+        JButton btnAlterar = new JButton("Alterar");
         btnAlterar.setBounds(75, 200, 100, 25);
         frame.add(btnAlterar);
 

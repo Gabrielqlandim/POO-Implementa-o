@@ -16,6 +16,7 @@ public class TelaIncluirEntidadeOperacao {
 
     private void initialize (){
         JFrame frame = new JFrame();
+        frame.setTitle("Incluir Entidade Operação");
         frame.setSize(600, 500);
         frame.setLayout(null);
 
