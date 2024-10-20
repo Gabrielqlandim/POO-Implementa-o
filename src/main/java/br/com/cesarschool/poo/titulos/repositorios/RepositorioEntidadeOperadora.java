@@ -34,13 +34,16 @@ import java.util.List;
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.   
  */
 public class RepositorioEntidadeOperadora {
+
     Path arquivo = Paths.get("EntidadeOperacao.txt");
+
     public boolean incluir(EntidadeOperadora entidadeOperadora) {
         try(BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))){
             String linha;
             while((linha = reader.readLine()) != null){
                 String[] dados = linha.split(";");
                 if(dados[0].equals(String.valueOf(entidadeOperadora.getIdentificador()))){
+                    System.out.println("JA EXISTE");
                     return false;
                 }
             }

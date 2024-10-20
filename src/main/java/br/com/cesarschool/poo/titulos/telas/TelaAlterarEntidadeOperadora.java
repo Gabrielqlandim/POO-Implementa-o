@@ -10,7 +10,10 @@ public class TelaAlterarEntidadeOperadora {
 
     public static void main(String[] args) {
 
-        TelaAlterarEntidadeOperadora tela = new TelaAlterarEntidadeOperadora();
+        //TelaAlterarEntidadeOperadora tela1 = new TelaAlterarEntidadeOperadora();
+        //TelaBuscarEntidadeOperadora tela2 = new TelaBuscarEntidadeOperadora();
+        //TelaExcluirEntidadeOperadora tela3 = new TelaExcluirEntidadeOperadora();
+        TelaIncluirEntidadeOperacao tela4 = new TelaIncluirEntidadeOperacao();
     }
 
     private void initialize (){

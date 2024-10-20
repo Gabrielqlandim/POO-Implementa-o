@@ -1,16 +1,14 @@
 package br.com.cesarschool.poo.titulos.telas;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+
 
 public class TelaBuscarEntidadeOperadora {
+
     public TelaBuscarEntidadeOperadora(){
 
         initialize();
-    }
-
-    public static void main(String[] args) {
-
-        TelaBuscarEntidadeOperadora tela = new TelaBuscarEntidadeOperadora();
     }
 
     private void initialize (){

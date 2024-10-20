@@ -1,16 +1,14 @@
 package br.com.cesarschool.poo.titulos.telas;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+
 
 public class TelaExcluirEntidadeOperadora {
+
     public TelaExcluirEntidadeOperadora(){
 
         initialize();
-    }
-
-    public static void main(String[] args) {
-
-        TelaExcluirEntidadeOperadora tela = new TelaExcluirEntidadeOperadora();
     }
 
     private void initialize (){
