@@ -2,16 +2,15 @@ package br.com.cesarschool.poo.titulos.telas;
 
 import javax.swing.*;
 
-public class TelaIncluirEntidadeOperacao {
-
-    public TelaIncluirEntidadeOperacao(){
+public class TelaAlterarEntidadeOperadora {
+    public TelaAlterarEntidadeOperadora(){
 
         initialize();
     }
 
     public static void main(String[] args) {
 
-        TelaIncluirEntidadeOperacao tela = new TelaIncluirEntidadeOperacao();
+        TelaAlterarEntidadeOperadora tela = new TelaAlterarEntidadeOperadora();
     }
 
     private void initialize (){
@@ -61,9 +60,9 @@ public class TelaIncluirEntidadeOperacao {
         frame.add(textFieldsaldoTituloDivida);
 
         //btnIncluir
-        JButton btnIncluir = new JButton("Incluir");
-        btnIncluir.setBounds(75, 200, 100, 25);
-        frame.add(btnIncluir);
+        JButton btnAlterar = new JButton("Incluir");
+        btnAlterar.setBounds(75, 200, 100, 25);
+        frame.add(btnAlterar);
 
         //btnVoltar
         JButton btnVoltar = new JButton("Voltar");
