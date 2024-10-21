@@ -18,7 +18,7 @@ public class TelaIncluirEntidadeOperacao {
     JTextField textFieldNome = new JTextField();
 
     JLabel lblAutorizadoAcao = new JLabel("Autorizado Ação: ");
-    String[] tipos = { "True", "False"};
+    String[] tipos = { "true", "false"};
     JComboBox<String> comboBoxTipo = new JComboBox<>(tipos);
 
     JLabel lblSaldoAcao = new JLabel("Saldo Ação: ");
@@ -93,12 +93,18 @@ public class TelaIncluirEntidadeOperacao {
         try{
             String id = textFieldId.getText();
             String nome = textFieldNome.getText();
-            String autorizadoAcao = textFieldsaldoAcao.getText();
+            String autorizadoAcao = (String) comboBoxTipo.getSelectedItem();
 
-            EntidadeOperadora entidadeOperadora = new EntidadeOperadora(Long.parseLong(id), nome, Boolean.parseBoolean(autorizadoAcao));
+            boolean autorizacao = Boolean.parseBoolean(autorizadoAcao);
+
+            EntidadeOperadora entidadeOperadora = new EntidadeOperadora(Long.parseLong(id), nome, autorizacao);
             RepositorioEntidadeOperadora repositorioEntidadeOperadora = new RepositorioEntidadeOperadora();
 
-            if (repositorioEntidadeOperadora.incluir(entidadeOperadora)){
+            boolean verificacao = repositorioEntidadeOperadora.incluir(entidadeOperadora);
+
+            System.out.println(verificacao);
+
+            if (verificacao){
                 JOptionPane.showMessageDialog(frame, "Entidade Operação Incluida com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }else{
                 JOptionPane.showMessageDialog(frame, "Erro ao incluir entidade operação: ", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -118,7 +124,8 @@ public class TelaIncluirEntidadeOperacao {
         textFieldsaldoAcao.setText("");
         textFieldsaldoTituloDivida.setText("");
     }
+
     private void voltar(ActionEvent actionEvent){
-        
+        frame.dispose();
     }
 }

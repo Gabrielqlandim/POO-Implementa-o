@@ -1,83 +1,160 @@
 package br.com.cesarschool.poo.titulos.telas;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+
+import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora;
 
 public class TelaAlterarEntidadeOperadora {
+
+    JFrame frame = new JFrame();
+
+    JLabel lblId = new JLabel("Id: ");
+    JTextField textFieldId = new JTextField();
+
+    JLabel lblNome = new JLabel("Nome: ");
+    JTextField textFieldNome = new JTextField();
+
+    JLabel lblAutorizadoAcao = new JLabel("Autorizado Ação: ");
+    String[] tipos = { "true", "talse"};
+    JComboBox<String> comboBoxTipo = new JComboBox<>(tipos);
+
+    JLabel lblSaldoAcao = new JLabel("Saldo Ação: ");
+    JTextField textFieldsaldoAcao = new JTextField();
+
+    JLabel lblSaldoTituloDivida = new JLabel("Saldo Título Dívida: ");
+    JTextField textFieldsaldoTituloDivida = new JTextField();
+
+    JButton btnBuscar = new JButton("Buscar");
+    JButton btnVoltar = new JButton("Voltar");
+    JButton btnLimpar = new JButton("Limpar");
+    JButton btnAlterar = new JButton("Alterar");
+    
+    RepositorioEntidadeOperadora repositorioEntidadeOperadora = new RepositorioEntidadeOperadora();
+
     public TelaAlterarEntidadeOperadora(){
 
         initialize();
     }
 
-    public static void main(String[] args) {
-
-        //TelaAlterarEntidadeOperadora tela1 = new TelaAlterarEntidadeOperadora();
-        TelaBuscarEntidadeOperadora tela2 = new TelaBuscarEntidadeOperadora();
-        //TelaExcluirEntidadeOperadora tela3 = new TelaExcluirEntidadeOperadora();
-        //TelaIncluirEntidadeOperacao tela4 = new TelaIncluirEntidadeOperacao();
-    }
-
     private void initialize (){
-        JFrame frame = new JFrame();
-        frame.setTitle("Alterar Entidade Operação");
+
+        frame.setTitle("Incluir Entidade Operação");
         frame.setSize(600, 500);
         frame.setLayout(null);
 
         //id
-        JLabel lblId = new JLabel("Id: ");
         lblId.setBounds(10, 20, 80, 25);
         frame.add(lblId);
-        JTextField textFieldId = new JTextField();
+        
         textFieldId.setBounds(150, 20, 165, 25);
         frame.add(textFieldId);
 
-        //nome
-        JLabel lblNome = new JLabel("Nome: ");
-        lblNome.setBounds(10, 50, 80, 25);
-        frame.add(lblNome);
-        JTextField textFieldNome = new JTextField();
-        textFieldNome.setBounds(150, 50, 165, 25);
-        frame.add(textFieldNome);
-
-        //Autorizadoação
-        JLabel lblAutorizadoAcao = new JLabel("Autorizado Ação: ");
-        lblAutorizadoAcao.setBounds(10, 80, 80, 25);
-        frame.add(lblAutorizadoAcao);
-        String[] tipos = { "True", "False"};
-        JComboBox<String> comboBoxTipo = new JComboBox<>(tipos);
-        comboBoxTipo.setBounds(150, 80, 80, 25);
-        frame.add(comboBoxTipo);
-
-        //saldoacao
-        JLabel lblsaldoAcao = new JLabel("Saldo Ação: ");
-        lblsaldoAcao.setBounds(10, 110, 80, 25);
-        frame.add(lblsaldoAcao);
-        JTextField textFieldsaldoAcao = new JTextField();
-        textFieldsaldoAcao.setBounds(150, 110, 165, 25);
-        frame.add(textFieldsaldoAcao);
-
-        //saldoTituloDivida
-        JLabel lblsaldoTituloDivida = new JLabel("Saldo Título Dívida: ");
-        lblsaldoTituloDivida.setBounds(10, 140, 80, 25);
-        frame.add(lblsaldoTituloDivida);
-        JTextField textFieldsaldoTituloDivida = new JTextField();
-        textFieldsaldoTituloDivida.setBounds(150, 140, 165, 25);
-        frame.add(textFieldsaldoTituloDivida);
-
-        //btnAlterar
-        JButton btnAlterar = new JButton("Alterar");
-        btnAlterar.setBounds(75, 200, 100, 25);
-        frame.add(btnAlterar);
+        //btnBuscar
+        btnBuscar.setBounds(400, 20, 100, 25);
+        frame.add(btnBuscar);
+        btnBuscar.addActionListener(e -> buscarAlterar(e));
 
         //btnVoltar
-        JButton btnVoltar = new JButton("Voltar");
-        btnVoltar.setBounds(200, 200, 100, 25);
+        btnVoltar.setBounds(200, 425, 100, 25);
         frame.add(btnVoltar);
+        btnVoltar.addActionListener(e -> voltar(e));
 
         //btnLimpar
-        JButton btnLimpar = new JButton("Limpar");
-        btnLimpar.setBounds(325, 200, 100, 25);
+        btnLimpar.setBounds(325, 425, 100, 25);
         frame.add(btnLimpar);
+        btnLimpar.addActionListener(e -> limpar(e));
 
         frame.setVisible(true);
+    }
+
+    private void buscarAlterar(ActionEvent actionEvent){
+        try {
+            String id = textFieldId.getText();
+
+            RepositorioEntidadeOperadora repositorioEntidadeOperadora = new RepositorioEntidadeOperadora();
+
+            EntidadeOperadora entidadeOperadora = repositorioEntidadeOperadora.buscar(Long.parseLong(id));
+
+            if (entidadeOperadora != null) {
+                //id
+                lblId.setBounds(10, 250, 80, 25);
+                frame.add(lblId);
+                textFieldId.setBounds(150, 250, 165, 25);
+                frame.add(textFieldId);
+
+                //nome
+                lblNome.setBounds(10, 280, 80, 25);
+                frame.add(lblNome);
+                textFieldNome.setBounds(150, 280, 165, 25);
+                frame.add(textFieldNome);
+
+                //Autorizadoação
+                lblAutorizadoAcao.setBounds(10, 310, 80, 25);
+                frame.add(lblAutorizadoAcao);
+                comboBoxTipo.setBounds(150, 310, 80, 25);
+                frame.add(comboBoxTipo);
+
+                //saldoacao
+                lblSaldoAcao.setBounds(10, 340, 80, 25);
+                frame.add(lblSaldoAcao);
+                textFieldsaldoAcao.setBounds(150, 340, 165, 25);
+                frame.add(textFieldsaldoAcao);
+
+                //saldoTituloDivida
+                lblSaldoTituloDivida.setBounds(10, 370, 80, 25);
+                frame.add(lblSaldoTituloDivida);
+                textFieldsaldoTituloDivida.setBounds(150, 370, 165, 25);
+                frame.add(textFieldsaldoTituloDivida);
+
+                btnAlterar.setBounds(75, 425, 100, 25);
+                frame.add(btnAlterar);
+                btnLimpar.addActionListener(e -> alterar(e));
+
+            
+            }else{
+                JOptionPane.showMessageDialog(frame, "Entidade operação não encontrada", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(frame, "Erro ao converter valores numéricos: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void limpar(ActionEvent actionEvent){
+        textFieldId.setText("");
+        textFieldNome.setText("");
+        textFieldsaldoAcao.setText("");
+        textFieldsaldoTituloDivida.setText("");
+    }
+
+    private void voltar(ActionEvent actionEvent){
+        frame.dispose();
+    }
+
+    private void alterar(ActionEvent actionEvent){
+        try{
+            String id = textFieldId.getText();
+            String nome = textFieldNome.getText();
+            boolean autorizadoAcao = (boolean) comboBoxTipo.getSelectedItem();
+
+            EntidadeOperadora entidadeOperadora = new EntidadeOperadora(Long.parseLong(id), nome, autorizadoAcao);
+
+            RepositorioEntidadeOperadora repositorioEntidadeOperadora = new RepositorioEntidadeOperadora();
+
+            if (repositorioEntidadeOperadora.alterar(entidadeOperadora)){
+                JOptionPane.showMessageDialog(frame, "Entidade Operação alterada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(frame, "Erro ao alterar entidade operação: ", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+
+            
+
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(frame, "Erro ao converter valores numéricos: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }
 }

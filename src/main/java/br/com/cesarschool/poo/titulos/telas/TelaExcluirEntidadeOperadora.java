@@ -48,6 +48,7 @@ public class TelaExcluirEntidadeOperadora {
         
         btnVoltar.setBounds(200, 200, 100, 25);
         frame.add(btnVoltar);
+        btnVoltar.addActionListener(e -> voltar(e));
 
         //btnLimpar
         
@@ -82,4 +83,7 @@ public class TelaExcluirEntidadeOperadora {
         textFieldId.setText("");
     }
 
+    private void voltar(ActionEvent actionEvent){
+        frame.dispose();
+    }
 }

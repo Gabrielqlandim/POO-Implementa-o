@@ -47,6 +47,7 @@ public class TelaBuscarEntidadeOperadora {
         
         btnVoltar.setBounds(200, 200, 100, 25);
         frame.add(btnVoltar);
+        btnVoltar.addActionListener(e -> voltar(e));
 
         //btnLimpar
         
@@ -92,4 +93,7 @@ public class TelaBuscarEntidadeOperadora {
         textFieldId.setText("");
     }
 
+    private void voltar(ActionEvent actionEvent){
+        frame.dispose();
+    }
 }
