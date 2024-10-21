@@ -43,7 +43,6 @@ public class RepositorioEntidadeOperadora {
             while((linha = reader.readLine()) != null){
                 String[] dados = linha.split(";");
                 if(dados[0].equals(String.valueOf(entidadeOperadora.getIdentificador()))){
-                    System.out.println("JA EXISTE");
                     return false;
                 }
             }
@@ -97,7 +96,7 @@ public class RepositorioEntidadeOperadora {
 
 
 
-    public boolean excluir(int identificador) {
+    public boolean excluir(long identificador) {
         List<String> linhasNovas = new ArrayList<>();
         boolean apagado = false;
         try (BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))) {
