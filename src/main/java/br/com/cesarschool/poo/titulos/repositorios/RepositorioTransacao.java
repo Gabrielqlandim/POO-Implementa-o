@@ -31,7 +31,7 @@ import java.util.List;
  * recebido como par�metro.  
  */
 public class RepositorioTransacao {
-	Path arquivo = Paths.get("Transacao.txt");
+	Path arquivo = Paths.get("C:\\Users\\pedro\\Documents\\3º Período\\Programação Orientada a Objeto\\POO-Implementa-o\\src\\main\\java\\br\\com\\cesarschool\\poo\\titulos\\repositorios\\Transacao.txt");
 
 	private RepositorioAcao repositorioAcao = new RepositorioAcao();
 	private RepositorioTituloDivida repositorioTituloDivida = new RepositorioTituloDivida();

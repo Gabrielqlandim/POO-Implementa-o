@@ -67,17 +67,27 @@ public class TelaBuscarEntidadeOperadora {
             EntidadeOperadora entidadeOperadora = repositorioEntidadeOperadora.buscar(Long.parseLong(id));
 
             if (entidadeOperadora != null) {
-                JLabel lblnome = new JLabel("Nome: " + entidadeOperadora.getNome());
-                lblnome.setBounds(75, 200, 100, 25);
+
+                System.out.println(entidadeOperadora.getNome());
+                
+                JLabel lblNome = new JLabel("Nome: " + entidadeOperadora.getNome());
+                lblNome.setBounds(75, 200, 100, 25);
+                frame.add(lblNome);
 
                 JLabel lblAutorizadoAcao = new JLabel("Autorizado Ação: " + entidadeOperadora.getAutorizadoAcao());
-                lblAutorizadoAcao.setBounds(200, 200, 100, 25);
+                lblAutorizadoAcao.setBounds(75, 325, 100, 25);
+                frame.add(lblAutorizadoAcao);
 
                 JLabel lblSaldoAcao = new JLabel("Saldo Ação: " + entidadeOperadora.getSaldoAcao());
-                lblSaldoAcao.setBounds(325, 200, 100, 25);
+                lblSaldoAcao.setBounds(75, 200, 450, 25);
+                frame.add(lblSaldoAcao);
 
                 JLabel lblSaldoTituloDivida = new JLabel("Saldo Título Dívida: " + entidadeOperadora.getSaldoTituloDivida());
-                lblSaldoTituloDivida.setBounds(450, 200, 100, 25);
+                lblSaldoTituloDivida.setBounds(75, 575, 100, 25);
+                frame.add(lblSaldoTituloDivida);
+
+                frame.revalidate();
+                frame.repaint();
             
             }else{
                 JOptionPane.showMessageDialog(frame, "Entidade operação não encontrada", "Erro", JOptionPane.ERROR_MESSAGE);
