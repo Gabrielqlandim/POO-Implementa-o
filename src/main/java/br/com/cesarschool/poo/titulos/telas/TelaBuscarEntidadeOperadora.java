@@ -18,6 +18,11 @@ public class TelaBuscarEntidadeOperadora {
     JButton btnVoltar = new JButton("Voltar");
     JButton btnLimpar = new JButton("Limpar");
 
+    JLabel lblNome = new JLabel();
+    JLabel lblAutorizadoAcao = new JLabel();
+    JLabel lblSaldoAcao = new JLabel();
+    JLabel lblSaldoTituloDivida = new JLabel();
+
     public TelaBuscarEntidadeOperadora(){
 
         initialize();
@@ -39,19 +44,19 @@ public class TelaBuscarEntidadeOperadora {
 
         //botao buscar
         
-        btnBuscar.setBounds(75, 200, 100, 25);
+        btnBuscar.setBounds(75, 400, 100, 25);
         frame.add(btnBuscar);
         btnBuscar.addActionListener(e -> buscar(e));
 
         //btnVoltar
         
-        btnVoltar.setBounds(200, 200, 100, 25);
+        btnVoltar.setBounds(200, 400, 100, 25);
         frame.add(btnVoltar);
         btnVoltar.addActionListener(e -> voltar(e));
 
         //btnLimpar
         
-        btnLimpar.setBounds(325, 200, 100, 25);
+        btnLimpar.setBounds(325, 400, 100, 25);
         frame.add(btnLimpar);
         btnLimpar.addActionListener(e -> limpar(e));
 
@@ -68,22 +73,26 @@ public class TelaBuscarEntidadeOperadora {
 
             if (entidadeOperadora != null) {
 
-                System.out.println(entidadeOperadora.getNome());
+                frame.remove(lblNome);
+                frame.remove(lblAutorizadoAcao);
+                frame.remove(lblSaldoAcao);
+                frame.remove(lblSaldoTituloDivida);
+
                 
-                JLabel lblNome = new JLabel("Nome: " + entidadeOperadora.getNome());
-                lblNome.setBounds(75, 200, 100, 25);
+                lblNome.setText("Nome: " + entidadeOperadora.getNome());
+                lblNome.setBounds(75, 100, 200, 25);
                 frame.add(lblNome);
-
-                JLabel lblAutorizadoAcao = new JLabel("Autorizado Ação: " + entidadeOperadora.getAutorizadoAcao());
-                lblAutorizadoAcao.setBounds(75, 325, 100, 25);
+                
+                lblAutorizadoAcao.setText("Autorizado Ação: " + entidadeOperadora.getAutorizadoAcao());
+                lblAutorizadoAcao.setBounds(75, 150, 200, 25);
                 frame.add(lblAutorizadoAcao);
-
-                JLabel lblSaldoAcao = new JLabel("Saldo Ação: " + entidadeOperadora.getSaldoAcao());
-                lblSaldoAcao.setBounds(75, 200, 450, 25);
+                
+                lblSaldoAcao.setText("Saldo Ação: " + entidadeOperadora.getSaldoAcao());
+                lblSaldoAcao.setBounds(75, 200, 200, 25);
                 frame.add(lblSaldoAcao);
-
-                JLabel lblSaldoTituloDivida = new JLabel("Saldo Título Dívida: " + entidadeOperadora.getSaldoTituloDivida());
-                lblSaldoTituloDivida.setBounds(75, 575, 100, 25);
+                
+                lblSaldoTituloDivida.setText("Saldo Título Dívida: " + entidadeOperadora.getSaldoTituloDivida());
+                lblSaldoTituloDivida.setBounds(75, 250, 200, 25);
                 frame.add(lblSaldoTituloDivida);
 
                 frame.revalidate();

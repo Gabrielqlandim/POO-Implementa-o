@@ -21,11 +21,6 @@ public class TelaIncluirEntidadeOperacao {
     String[] tipos = { "true", "false"};
     JComboBox<String> comboBoxTipo = new JComboBox<>(tipos);
 
-    JLabel lblSaldoAcao = new JLabel("Saldo Ação: ");
-    JTextField textFieldsaldoAcao = new JTextField();
-
-    JLabel lblSaldoTituloDivida = new JLabel("Saldo Título Dívida: ");
-    JTextField textFieldsaldoTituloDivida = new JTextField();
 
     JButton btnIncluir = new JButton("Incluir");
     JButton btnVoltar = new JButton("Voltar");
@@ -59,17 +54,6 @@ public class TelaIncluirEntidadeOperacao {
         comboBoxTipo.setBounds(150, 80, 80, 25);
         frame.add(comboBoxTipo);
 
-        //saldoacao
-        lblSaldoAcao.setBounds(10, 110, 80, 25);
-        frame.add(lblSaldoAcao);
-        textFieldsaldoAcao.setBounds(150, 110, 165, 25);
-        frame.add(textFieldsaldoAcao);
-
-        //saldoTituloDivida
-        lblSaldoTituloDivida.setBounds(10, 140, 80, 25);
-        frame.add(lblSaldoTituloDivida);
-        textFieldsaldoTituloDivida.setBounds(150, 140, 165, 25);
-        frame.add(textFieldsaldoTituloDivida);
 
         //btnIncluir
         btnIncluir.setBounds(75, 200, 100, 25);
@@ -121,8 +105,6 @@ public class TelaIncluirEntidadeOperacao {
     private void limpar(ActionEvent actionEvent){
         textFieldId.setText("");
         textFieldNome.setText("");
-        textFieldsaldoAcao.setText("");
-        textFieldsaldoTituloDivida.setText("");
     }
 
     private void voltar(ActionEvent actionEvent){

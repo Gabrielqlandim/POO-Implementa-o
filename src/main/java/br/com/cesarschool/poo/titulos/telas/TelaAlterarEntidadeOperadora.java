@@ -18,14 +18,8 @@ public class TelaAlterarEntidadeOperadora {
     JTextField textFieldNome = new JTextField();
 
     JLabel lblAutorizadoAcao = new JLabel("Autorizado Ação: ");
-    String[] tipos = { "true", "talse"};
+    String[] tipos = { "true", "false"};
     JComboBox<String> comboBoxTipo = new JComboBox<>(tipos);
-
-    JLabel lblSaldoAcao = new JLabel("Saldo Ação: ");
-    JTextField textFieldsaldoAcao = new JTextField();
-
-    JLabel lblSaldoTituloDivida = new JLabel("Saldo Título Dívida: ");
-    JTextField textFieldsaldoTituloDivida = new JTextField();
 
     JButton btnBuscar = new JButton("Buscar");
     JButton btnVoltar = new JButton("Voltar");
@@ -67,6 +61,9 @@ public class TelaAlterarEntidadeOperadora {
         frame.add(btnLimpar);
         btnLimpar.addActionListener(e -> limpar(e));
 
+        btnAlterar.setBounds(75, 425, 100, 25);
+        btnAlterar.addActionListener(e -> alterar(e));
+
         frame.setVisible(true);
     }
 
@@ -79,43 +76,30 @@ public class TelaAlterarEntidadeOperadora {
             EntidadeOperadora entidadeOperadora = repositorioEntidadeOperadora.buscar(Long.parseLong(id));
 
             if (entidadeOperadora != null) {
-                //id
-                lblId.setBounds(10, 250, 80, 25);
-                frame.add(lblId);
-                textFieldId.setBounds(150, 250, 165, 25);
-                frame.add(textFieldId);
 
                 //nome
                 lblNome.setBounds(10, 280, 80, 25);
                 frame.add(lblNome);
                 textFieldNome.setBounds(150, 280, 165, 25);
+                textFieldNome.setText(entidadeOperadora.getNome());
                 frame.add(textFieldNome);
 
                 //Autorizadoação
                 lblAutorizadoAcao.setBounds(10, 310, 80, 25);
                 frame.add(lblAutorizadoAcao);
                 comboBoxTipo.setBounds(150, 310, 80, 25);
+                comboBoxTipo.setSelectedItem(Boolean.toString(entidadeOperadora.getAutorizadoAcao()));
                 frame.add(comboBoxTipo);
 
-                //saldoacao
-                lblSaldoAcao.setBounds(10, 340, 80, 25);
-                frame.add(lblSaldoAcao);
-                textFieldsaldoAcao.setBounds(150, 340, 165, 25);
-                frame.add(textFieldsaldoAcao);
-
-                //saldoTituloDivida
-                lblSaldoTituloDivida.setBounds(10, 370, 80, 25);
-                frame.add(lblSaldoTituloDivida);
-                textFieldsaldoTituloDivida.setBounds(150, 370, 165, 25);
-                frame.add(textFieldsaldoTituloDivida);
-
-                btnAlterar.setBounds(75, 425, 100, 25);
+                //btnAlterar
                 frame.add(btnAlterar);
-                btnLimpar.addActionListener(e -> alterar(e));
-
+                
+                frame.revalidate();
+                frame.repaint();
             
             }else{
                 JOptionPane.showMessageDialog(frame, "Entidade operação não encontrada", "Erro", JOptionPane.ERROR_MESSAGE);
+                
             }
 
         } catch (NumberFormatException ex) {
@@ -124,10 +108,8 @@ public class TelaAlterarEntidadeOperadora {
     }
 
     private void limpar(ActionEvent actionEvent){
-        textFieldId.setText("");
         textFieldNome.setText("");
-        textFieldsaldoAcao.setText("");
-        textFieldsaldoTituloDivida.setText("");
+        textFieldId.setText("");
     }
 
     private void voltar(ActionEvent actionEvent){
@@ -138,7 +120,7 @@ public class TelaAlterarEntidadeOperadora {
         try{
             String id = textFieldId.getText();
             String nome = textFieldNome.getText();
-            boolean autorizadoAcao = (boolean) comboBoxTipo.getSelectedItem();
+            boolean autorizadoAcao = Boolean.parseBoolean((String) comboBoxTipo.getSelectedItem());
 
             EntidadeOperadora entidadeOperadora = new EntidadeOperadora(Long.parseLong(id), nome, autorizadoAcao);
 

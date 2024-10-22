@@ -51,7 +51,7 @@ public class RepositorioEntidadeOperadora {
         }
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo.toFile(), true))){
-            writer.write(entidadeOperadora.getIdentificador() + ";" + entidadeOperadora.getNome() + ";" + entidadeOperadora.getAutorizadoAcao());
+            writer.write(entidadeOperadora.getIdentificador() + ";" + entidadeOperadora.getNome() + ";" + entidadeOperadora.getAutorizadoAcao() + ";" + entidadeOperadora.getSaldoAcao() + ";" + entidadeOperadora.getSaldoTituloDivida());
             writer.newLine();
             return  true;
         } catch (IOException e) {
@@ -70,7 +70,7 @@ public class RepositorioEntidadeOperadora {
 
                 String[] dados = linha.split(";");
                 if(dados[0].equals(String.valueOf(entidadeOperadora.getIdentificador()))){
-                    linhasNovas.add(entidadeOperadora.getIdentificador() + ";" + entidadeOperadora.getNome() + ";" + entidadeOperadora.getAutorizadoAcao());
+                    linhasNovas.add(entidadeOperadora.getIdentificador() + ";" + entidadeOperadora.getNome() + ";" + entidadeOperadora.getAutorizadoAcao() + ";" + entidadeOperadora.getSaldoAcao() + ";" + entidadeOperadora.getSaldoTituloDivida());
                     troca = true;
                 }else{
                     linhasNovas.add(linha);
