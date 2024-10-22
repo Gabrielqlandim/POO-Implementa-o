@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class RepositorioTituloDivida {
 
-	Path arquivo = Paths.get("C:\\Users\\pedro\\Documents\\3º Período\\Programação Orientada a Objeto\\POO-Implementa-o\\src\\main\\java\\br\\com\\cesarschool\\poo\\titulos\\repositorios\\TituloDivida.txt");
+	Path arquivo = Paths.get("src\\main\\java\\br\\com\\cesarschool\\poo\\titulos\\repositorios\\TituloDivida.txt");
 	public boolean incluir(TituloDivida tituloDivida) {
 		try(BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))){
 			String linha;

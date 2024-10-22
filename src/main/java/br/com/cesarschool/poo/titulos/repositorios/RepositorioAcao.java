@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class RepositorioAcao {
 
-	Path arquivo = Paths.get("C:\\Users\\pedro\\Documents\\3º Período\\Programação Orientada a Objeto\\POO-Implementa-o\\src\\main\\java\\br\\com\\cesarschool\\poo\\titulos\\repositorios\\Acao.txt");
+	Path arquivo = Paths.get("src\\main\\java\\br\\com\\cesarschool\\poo\\titulos\\repositorios\\Acao.txt");
 	public boolean incluir(Acao acao) {
 		try(BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))){
 			String linha;
