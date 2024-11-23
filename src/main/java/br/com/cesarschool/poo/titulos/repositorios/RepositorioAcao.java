@@ -1,11 +1,8 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 import br.com.cesarschool.poo.titulos.entidades.Acao;
+import br.gov.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
+import br.gov.cesarschool.poo.daogenerico.Entidade;
 
-import java.io.*;
-import java.nio.file.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 /*
  * Deve gravar em e ler de um arquivo texto chamado Acao.txt os dados dos objetos do tipo
  * Acao. Seguem abaixo exemplos de linhas (identificador, nome, dataValidade, valorUnitario)
@@ -31,112 +28,32 @@ import java.util.List;
  */
 public class RepositorioAcao {
 
-	Path arquivo = Paths.get("src\\main\\java\\br\\com\\cesarschool\\poo\\titulos\\repositorios\\Acao.txt");
+	DAOSerializadorObjetos dao = new DAOSerializadorObjetos(Acao.class);
 	public boolean incluir(Acao acao) {
-		try(BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))){
-			String linha;
-			while((linha = reader.readLine()) != null){
-				String[] dados = linha.split(";");
-				if(dados[0].equals(String.valueOf(acao.getIdentificador()))){
-					return false;
-				}
-			}
-		}catch (IOException e){
-			return false;
-		}
-
-		try(BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo.toFile(), true))){
-			writer.write(acao.getIdentificador() + ";" + acao.getNome() + ";" + acao.getDataDeValidade() + ";" + acao.getValorUnitario());
-			writer.newLine();
-			return  true;
-		} catch (IOException e) {
-			return false;
-		}
+		if (buscar(acao.getIdentificador()) != null) {
+            return false;
+        }
+        return dao.incluir(acao);
 	}
 
 
 
 	public boolean alterar(Acao acao) {
-		List<String> linhasNovas = new ArrayList<>();
-		boolean troca = false;
-		try(BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))){
-			String linha;
-			while((linha = reader.readLine()) != null){
-
-				String[] dados = linha.split(";");
-				if(dados[0].equals(String.valueOf(acao.getIdentificador()))){
-					linhasNovas.add(acao.getIdentificador() + ";" + acao.getNome() + ";" + acao.getDataDeValidade() + ";" + acao.getValorUnitario());
-					troca = true;
-				}else{
-					linhasNovas.add(linha);
-				}
-			}
-		} catch (Exception e) {
-			return false;
-		}
-		if(troca == true){
-			try(BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivo.toFile()))){
-				for(String linha : linhasNovas){
-					escritor.write(linha);
-					escritor.newLine();
-				}
-				return true;
-			} catch (Exception e) {
-				return false;
-			}
-		}else{
-			return false;
-		}
+		return dao.alterar(acao);
 	}
 
 
 
 	public boolean excluir(int identificador) {
-		List<String> linhasNovas = new ArrayList<>();
-		boolean apagado = false;
-		try (BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))) {
-			String linha;
-			while ((linha = reader.readLine()) != null) {
-				String[] dados = linha.split(";");
-				if (dados[0].equals(String.valueOf(identificador)) == false) {
-					linhasNovas.add(linha);
-				}
-				else{
-					apagado = true;
-				}
-			}
-		} catch (IOException e) {
-			return false;
-		}
-		if(apagado == true){
-			try(BufferedWriter escrever = new BufferedWriter(new FileWriter(arquivo.toFile()))) {
-				for(String linha : linhasNovas){
-					escrever.write(linha);
-					escrever.newLine();
-				}
-				return true;
-			} catch (Exception e) {
-				return false;
-			}
-		}
-		else{
-			return false;
-		}
+		return dao.excluir(String.valueOf(identificador));
 	}
 
 
 	public Acao buscar(int identificador) {
-		try(BufferedReader reader = new BufferedReader((new FileReader(arquivo.toFile())))){
-			String linha;
-			while((linha = reader.readLine()) != null){
-				String[] dados = linha.split(";");
-				if(dados[0].equals(String.valueOf(identificador))==true){
-					return new Acao(Integer.parseInt(dados[0]), dados[1], LocalDate.parse(dados[2]), Double.parseDouble(dados[3]));
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+		Entidade entidade = dao.buscar(String.valueOf(identificador));
+        if(entidade instanceof Acao){
+            return (Acao) entidade;
+        }
+        return null;
 	}
 }

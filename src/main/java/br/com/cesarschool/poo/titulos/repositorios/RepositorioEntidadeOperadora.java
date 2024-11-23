@@ -1,15 +1,9 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
-import br.com.cesarschool.poo.titulos.entidades.Acao;
+
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.gov.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
-
-import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import br.gov.cesarschool.poo.daogenerico.Entidade;
 
 /*
  * Deve gravar em e ler de um arquivo texto chamado Acao.txt os dados dos objetos do tipo
@@ -59,6 +53,10 @@ public class RepositorioEntidadeOperadora {
 
 
     public EntidadeOperadora buscar(long identificador) {
-        return dao.buscar(String.valueOf(identificador));
+        Entidade entidade = dao.buscar(String.valueOf(identificador));
+        if(entidade instanceof EntidadeOperadora){
+            return (EntidadeOperadora) entidade;
+        }
+        return null;
     }
 }

@@ -1,14 +1,8 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
-import br.com.cesarschool.poo.titulos.entidades.Acao;
-
-import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import br.gov.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
+import br.gov.cesarschool.poo.daogenerico.Entidade;
 
 /*
  * Deve gravar em e ler de um arquivo texto chamado TituloDivida.txt os dados dos objetos do tipo
@@ -35,105 +29,24 @@ import java.util.List;
  */
 public class RepositorioTituloDivida {
 
-	Path arquivo = Paths.get("src\\main\\java\\br\\com\\cesarschool\\poo\\titulos\\repositorios\\TituloDivida.txt");
+	DAOSerializadorObjetos dao = new DAOSerializadorObjetos(TituloDivida.class);
 	public boolean incluir(TituloDivida tituloDivida) {
-		try(BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))){
-			String linha;
-			while((linha = reader.readLine()) != null){
-				String[] dados = linha.split(";");
-				if(dados[0].equals(String.valueOf(tituloDivida.getIdentificador()))){
-					return false;
-				}
-			}
-		}catch (IOException e){
-			return false;
-		}
-
-		try(BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo.toFile(), true))){
-			writer.write(tituloDivida.getIdentificador() + ";" + tituloDivida.getNome() + ";" + tituloDivida.getDataDeValidade() + ";" + tituloDivida.getTaxaJuros());
-			writer.newLine();
-			return  true;
-		} catch (IOException e) {
-			return false;
-		}
-
+		if (buscar(tituloDivida.getIdentificador()) != null) {
+            return false;
+        }
+        return dao.incluir(tituloDivida);
 	}
 	public boolean alterar(TituloDivida tituloDivida) {
-		List<String> linhasNovas = new ArrayList<>();
-		boolean troca = false;
-		try(BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))){
-			String linha;
-			while((linha = reader.readLine()) != null){
-
-				String[] dados = linha.split(";");
-				if(dados[0].equals(String.valueOf(tituloDivida.getIdentificador()))){
-					linhasNovas.add(tituloDivida.getIdentificador() + ";" + tituloDivida.getNome() + ";" + tituloDivida.getDataDeValidade() + ";" + tituloDivida.getTaxaJuros());
-					troca = true;
-				}else{
-					linhasNovas.add(linha);
-				}
-			}
-		} catch (Exception e) {
-			return false;
-		}
-		if(troca == true){
-			try(BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivo.toFile()))){
-				for(String linha : linhasNovas){
-					escritor.write(linha);
-					escritor.newLine();
-				}
-				return true;
-			} catch (Exception e) {
-				return false;
-			}
-		}else{
-			return false;
-		}
+		return dao.alterar(tituloDivida);
 	}
 	public boolean excluir(int identificador) {
-		List<String> linhasNovas = new ArrayList<>();
-		boolean apagado = false;
-		try (BufferedReader reader = new BufferedReader(new FileReader(arquivo.toFile()))) {
-			String linha;
-			while ((linha = reader.readLine()) != null) {
-				String[] dados = linha.split(";");
-				if (dados[0].equals(String.valueOf(identificador)) == false) {
-					linhasNovas.add(linha);
-				}
-				else{
-					apagado = true;
-				}
-			}
-		} catch (IOException e) {
-			return false;
-		}
-		if(apagado == true){
-			try(BufferedWriter escrever = new BufferedWriter(new FileWriter(arquivo.toFile()))) {
-				for(String linha : linhasNovas){
-					escrever.write(linha);
-					escrever.newLine();
-				}
-				return true;
-			} catch (Exception e) {
-				return false;
-			}
-		}
-		else{
-			return false;
-		}
+		return dao.excluir(String.valueOf(identificador));
 	}
 	public TituloDivida buscar(int identificador) {
-		try(BufferedReader reader = new BufferedReader((new FileReader(arquivo.toFile())))){
-			String linha;
-			while((linha = reader.readLine()) != null){
-				String[] dados = linha.split(";");
-				if(dados[0].equals(String.valueOf(identificador))==true){
-					return new TituloDivida(Double.parseDouble(dados[3]), Integer.parseInt(dados[0]), dados[1], LocalDate.parse(dados[2]));
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+		Entidade entidade = dao.buscar(String.valueOf(identificador));
+        if(entidade instanceof TituloDivida){
+            return (TituloDivida) entidade;
+        }
+        return null;
 	}
 }
