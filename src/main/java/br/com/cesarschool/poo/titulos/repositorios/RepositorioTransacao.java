@@ -22,10 +22,11 @@ import java.util.List;
  * A busca deve retornar um array de transa��es cuja entidadeCredito tenha identificador igual ao
  * recebido como par�metro.  
  */
-public class RepositorioTransacao {
+public class RepositorioTransacao extends RepositorioGeral{
 	
-	DAOSerializadorObjetos dao = new DAOSerializadorObjetos(Transacao.class);
-
+	public RepositorioTransacao() {
+		super(Transacao.class);
+	}
 
 	public boolean incluir(Transacao transacao) {
 		if (buscar(transacao.getIdUnico()) != null) {

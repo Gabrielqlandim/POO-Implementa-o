@@ -27,21 +27,27 @@ import br.gov.cesarschool.poo.daogenerico.Entidade;
  * A busca deve localizar uma linha por identificador, materializar e retornar um 
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.   
  */
-public class RepositorioTituloDivida {
+public class RepositorioTituloDivida extends RepositorioGeral {
 
-	DAOSerializadorObjetos dao = new DAOSerializadorObjetos(TituloDivida.class);
+	public RepositorioTituloDivida() {
+		super(TituloDivida.class);
+	}
+
 	public boolean incluir(TituloDivida tituloDivida) {
 		if (buscar(tituloDivida.getIdentificador()) != null) {
             return false;
         }
         return dao.incluir(tituloDivida);
 	}
+
 	public boolean alterar(TituloDivida tituloDivida) {
 		return dao.alterar(tituloDivida);
 	}
+
 	public boolean excluir(int identificador) {
 		return dao.excluir(String.valueOf(identificador));
 	}
+
 	public TituloDivida buscar(int identificador) {
 		Entidade entidade = dao.buscar(String.valueOf(identificador));
         if(entidade instanceof TituloDivida){

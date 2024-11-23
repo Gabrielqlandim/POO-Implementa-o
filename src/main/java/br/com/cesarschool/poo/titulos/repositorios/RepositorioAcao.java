@@ -26,9 +26,12 @@ import br.gov.cesarschool.poo.daogenerico.Entidade;
  * A busca deve localizar uma linha por identificador, materializar e retornar um 
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.   
  */
-public class RepositorioAcao {
+public class RepositorioAcao extends RepositorioGeral{
 
-	DAOSerializadorObjetos dao = new DAOSerializadorObjetos(Acao.class);
+	public RepositorioAcao() {
+		super(Acao.class);
+	}
+
 	public boolean incluir(Acao acao) {
 		if (buscar(acao.getIdentificador()) != null) {
             return false;
