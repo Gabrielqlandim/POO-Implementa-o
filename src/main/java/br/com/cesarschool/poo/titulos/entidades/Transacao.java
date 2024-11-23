@@ -1,6 +1,8 @@
 package br.com.cesarschool.poo.titulos.entidades;
 import java.time.LocalDateTime;
 
+import br.gov.cesarschool.poo.daogenerico.Entidade;
+
 /*
  * Esta classe deve ter os seguintes atributos:
  * entidadeCredito, do tipo EntidadeOperadora
@@ -16,7 +18,7 @@ import java.time.LocalDateTime;
  * 
  *  
  */ 
-public class Transacao {
+public class Transacao extends Entidade {
     private EntidadeOperadora entidadeCredito;
     private EntidadeOperadora entidadeDebito;
     private Acao acao;
@@ -35,6 +37,10 @@ public class Transacao {
         this.tituloDivida = tituloDivida;
     }
 
+    @Override
+    public String getIdUnico() {
+        return String.valueOf(entidadeCredito.getIdentificador() + "-" + entidadeDebito.getIdentificador() + "-" + valorOperacao);
+    }
 
     //metodos get e set
 

@@ -20,11 +20,15 @@ import java.util.List;
  * 
  * A classe deve ter a estrutura (métodos e construtores) dada abaixo.
  */
+
 public class DAOSerializadorObjetos {
+
 	private String nomeDiretorio;
+
 	public DAOSerializadorObjetos(Class<?> tipoEntidade) {
         this.nomeDiretorio = "." + File.separator + tipoEntidade.getSimpleName();
 	}
+    
 	public boolean incluir(Entidade entidade) {
         File diretorio = new File(nomeDiretorio + File.separator);
 
@@ -37,6 +41,7 @@ public class DAOSerializadorObjetos {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))){
             oos.writeObject(entidade);
             return true;
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -79,6 +84,7 @@ public class DAOSerializadorObjetos {
             return true;
         }
 	}
+    
 	public Entidade buscar(String idUnico) {
         Entidade[] entidades = buscarTodos();
 
@@ -89,6 +95,7 @@ public class DAOSerializadorObjetos {
         }
         return null;
 	}
+    
 	public Entidade[] buscarTodos() {
         File diretorio = new File(nomeDiretorio + File.separator);
 

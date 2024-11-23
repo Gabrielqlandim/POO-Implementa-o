@@ -21,13 +21,13 @@ import java.time.LocalDateTime;
  */
 
 
-public abstract class Entidade implements Serializable{
+public abstract class Entidade implements Serializable {
     private LocalDateTime dataHoraInclusao;
     private LocalDateTime dataHoraUltimaAlteracao;
     private String usuarioInclusao;
     private String usuarioUltimaAlteracao;
 
-    public Entidade(){
+    public Entidade() {
         this.setDataHoraInclusao(LocalDateTime.now());
         this.setDataHoraUltimaAlteracao(LocalDateTime.now());
     }

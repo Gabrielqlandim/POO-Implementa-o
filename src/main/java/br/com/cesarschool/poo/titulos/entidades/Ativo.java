@@ -1,5 +1,7 @@
 package br.com.cesarschool.poo.titulos.entidades;
 import java.time.LocalDate;
+
+import br.gov.cesarschool.poo.daogenerico.Entidade;
 /*
  * Esta classe deve ter os seguintes atributos:
  * identificador, do tipo int
@@ -10,7 +12,7 @@ import java.time.LocalDate;
  * e métodos set/get públicos para os atributos. O atributo identificador
  * é read-only fora da classe.
  */
-public class Ativo  {
+public class Ativo extends Entidade {
     private int identificador;
     private String nome;
     private LocalDate dataDeValidade;
@@ -19,6 +21,11 @@ public class Ativo  {
         this.identificador = identificador;
         this.nome = nome;
         this.dataDeValidade = dataDeValidade;
+    }
+
+    @Override
+    public String getIdUnico() {
+        return String.valueOf(this.getIdentificador());
     }
 
     public int getIdentificador() {
