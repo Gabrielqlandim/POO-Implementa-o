@@ -1,6 +1,8 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
 import br.com.cesarschool.poo.titulos.entidades.Transacao;
+import br.gov.cesarschool.poo.daogenerico.Entidade;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,5 +70,16 @@ public class RepositorioTransacao extends RepositorioGeral{
 			}
 		}
 		return result.toArray(new Transacao[0]);
+	}
+
+	public Transacao[] buscarTodos(){
+		Entidade[] entidades = dao.buscarTodos();
+
+		List<Transacao> transacoes = new ArrayList<>();
+
+		for(Entidade entidade : entidades){
+			transacoes.add((Transacao)entidade);
+		}
+		return transacoes.isEmpty() ? new Transacao[0] : transacoes.toArray(new Transacao[0]);
 	}
 }
