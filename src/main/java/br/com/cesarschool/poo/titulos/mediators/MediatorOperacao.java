@@ -4,7 +4,6 @@ import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import br.com.cesarschool.poo.titulos.entidades.Transacao;
-import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTransacao;
 
 import java.io.IOException;
@@ -130,7 +129,7 @@ public class MediatorOperacao {
     private MediatorTituloDivida mediatorTituloDivida = new MediatorTituloDivida();
     private MediatorEntdadeOperadora mediatorEntdadeOperadora = new MediatorEntdadeOperadora();
     private RepositorioTransacao repositorioTransacao = new RepositorioTransacao();
-    private MediatorOperacao mediatorOperacao = new MediatorOperacao();
+    
     //metodos
     public String realizarOperacao(boolean ehAcao, int entidadeCredito, int idEntidadeDebito, int idAcaoOuTitulo, double valor) throws IOException {
         if(valor <= 0.0){

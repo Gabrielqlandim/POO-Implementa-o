@@ -1,9 +1,8 @@
 package br.com.cesarschool.poo.titulos.mediators;
 
 import br.com.cesarschool.poo.titulos.entidades.Acao;
-import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao;
-import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida;
+
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

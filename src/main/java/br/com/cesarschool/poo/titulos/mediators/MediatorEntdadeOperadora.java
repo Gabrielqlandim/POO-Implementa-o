@@ -1,12 +1,12 @@
 package br.com.cesarschool.poo.titulos.mediators;
 
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
-import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao;
+
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDate;
+
 
 /*
  * Deve ser um singleton.

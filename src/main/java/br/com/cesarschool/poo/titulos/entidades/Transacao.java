@@ -2,6 +2,7 @@ package br.com.cesarschool.poo.titulos.entidades;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import br.com.cesarschool.poo.titulos.utils.Comparavel;
 import br.gov.cesarschool.poo.daogenerico.Entidade;
 
 /*
@@ -19,7 +20,15 @@ import br.gov.cesarschool.poo.daogenerico.Entidade;
  * 
  *  
  */ 
-public class Transacao extends Entidade {
+public class Transacao extends Entidade implements Comparavel {
+    @Override
+    public int compararCom(Comparavel outro) {
+        if (!(outro instanceof Transacao)) {
+            throw new IllegalArgumentException("O objeto a ser comparado não é uma instância de Transacao.");
+        }
+        Transacao outraTransacao = (Transacao) outro;
+        return this.dataHoraOperacao.compareTo(outraTransacao.getDataHoraOperacao());
+    }
     private EntidadeOperadora entidadeCredito;
     private EntidadeOperadora entidadeDebito;
     private Acao acao;
