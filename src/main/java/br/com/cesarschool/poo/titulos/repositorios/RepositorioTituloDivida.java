@@ -1,7 +1,6 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
-import br.gov.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
 import br.gov.cesarschool.poo.daogenerico.Entidade;
 
 /*
@@ -30,7 +29,11 @@ import br.gov.cesarschool.poo.daogenerico.Entidade;
 public class RepositorioTituloDivida extends RepositorioGeral {
 
 	public RepositorioTituloDivida() {
-		super(TituloDivida.class);
+		super();
+	}
+
+	protected Class<?> getClasseEntidade(){
+		return TituloDivida.class;
 	}
 
 	public boolean incluir(TituloDivida tituloDivida) {
@@ -41,10 +44,16 @@ public class RepositorioTituloDivida extends RepositorioGeral {
 	}
 
 	public boolean alterar(TituloDivida tituloDivida) {
+		if(buscar(tituloDivida.getIdentificador())==null){
+			return false;
+		}
 		return dao.alterar(tituloDivida);
 	}
 
 	public boolean excluir(int identificador) {
+		if(buscar(identificador)==null){
+			return false;
+		}
 		return dao.excluir(String.valueOf(identificador));
 	}
 

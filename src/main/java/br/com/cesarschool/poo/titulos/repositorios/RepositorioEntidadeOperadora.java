@@ -2,7 +2,6 @@ package br.com.cesarschool.poo.titulos.repositorios;
 
 
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
-import br.gov.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
 import br.gov.cesarschool.poo.daogenerico.Entidade;
 
 /*
@@ -31,8 +30,13 @@ import br.gov.cesarschool.poo.daogenerico.Entidade;
 public class RepositorioEntidadeOperadora extends RepositorioGeral {
 
     public RepositorioEntidadeOperadora(){
-        super(EntidadeOperadora.class);
+        super();
     }
+
+    protected Class<?> getClasseEntidade(){
+        return EntidadeOperadora.class;
+    }
+
 
     public boolean incluir(EntidadeOperadora entidadeOperadora) {
         if (buscar(entidadeOperadora.getIdentificador()) != null) {
@@ -44,12 +48,18 @@ public class RepositorioEntidadeOperadora extends RepositorioGeral {
 
 
     public boolean alterar(EntidadeOperadora entidadeOperadora) {
+        if(buscar(entidadeOperadora.getIdentificador())==null){
+            return false;
+        }
         return dao.alterar(entidadeOperadora);
     }
 
 
 
     public boolean excluir(long identificador) {
+        if(buscar(identificador)==null){
+            return false;
+        }
         return dao.excluir(String.valueOf(identificador));
     }
 

@@ -1,7 +1,6 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
 import br.com.cesarschool.poo.titulos.entidades.Transacao;
-import br.gov.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +24,11 @@ import java.util.List;
 public class RepositorioTransacao extends RepositorioGeral{
 	
 	public RepositorioTransacao() {
-		super(Transacao.class);
+		super();
+	}
+
+	protected Class<?> getClasseEntidade(){
+		return Transacao.class;
 	}
 
 	public boolean incluir(Transacao transacao) {
@@ -52,7 +55,7 @@ public class RepositorioTransacao extends RepositorioGeral{
 				result.add(transacao);
 			}
 		}
-		return (Transacao[]) result.toArray();
+		return result.toArray(new Transacao[0]);
 	}
 	public Transacao[] buscarPorEntidadeDevedora(int identificadorEntidadeDebito){
 		List<Transacao> result = new ArrayList<>();
@@ -62,6 +65,6 @@ public class RepositorioTransacao extends RepositorioGeral{
 				result.add(transacao);
 			}
 		}
-		return (Transacao[]) result.toArray();
+		return result.toArray(new Transacao[0]);
 	}
 }

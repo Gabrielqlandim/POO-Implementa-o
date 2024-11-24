@@ -1,6 +1,5 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 import br.com.cesarschool.poo.titulos.entidades.Acao;
-import br.gov.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
 import br.gov.cesarschool.poo.daogenerico.Entidade;
 
 /*
@@ -29,7 +28,11 @@ import br.gov.cesarschool.poo.daogenerico.Entidade;
 public class RepositorioAcao extends RepositorioGeral{
 
 	public RepositorioAcao() {
-		super(Acao.class);
+		super();
+	}
+
+	protected Class<?> getClasseEntidade(){
+		return Acao.class;
 	}
 
 	public boolean incluir(Acao acao) {
@@ -42,12 +45,18 @@ public class RepositorioAcao extends RepositorioGeral{
 
 
 	public boolean alterar(Acao acao) {
+		if(buscar((acao.getIdentificador()))==null){
+			return false;
+		}
 		return dao.alterar(acao);
 	}
 
 
 
 	public boolean excluir(int identificador) {
+		if(buscar((identificador))==null){
+			return false;
+		}
 		return dao.excluir(String.valueOf(identificador));
 	}
 

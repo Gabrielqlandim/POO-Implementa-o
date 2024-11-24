@@ -4,9 +4,16 @@ import br.gov.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
 
 public abstract class RepositorioGeral {
 
-    DAOSerializadorObjetos dao;
+    protected DAOSerializadorObjetos dao;
 
-    public RepositorioGeral (Class<?> tipoEntidade) {
-        this.dao = new DAOSerializadorObjetos(tipoEntidade);
+    public RepositorioGeral () {
+        this.dao = new DAOSerializadorObjetos(getClasseEntidade());
+    }
+
+    protected abstract Class<?> getClasseEntidade();
+
+    //fiz esse emtodo genero para buscar os objetos do dao. busca todos
+    protected Object[] buscarTodos(){
+        return dao.buscarTodos();
     }
 }
