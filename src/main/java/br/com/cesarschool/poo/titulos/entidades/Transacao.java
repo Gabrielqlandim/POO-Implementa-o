@@ -1,5 +1,6 @@
 package br.com.cesarschool.poo.titulos.entidades;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import br.gov.cesarschool.poo.daogenerico.Entidade;
 
@@ -39,7 +40,12 @@ public class Transacao extends Entidade {
 
     @Override
     public String getIdUnico() {
-        return String.valueOf(entidadeCredito.getIdentificador() + "-" + entidadeDebito.getIdentificador() + "-" + valorOperacao);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        String dataFormatada = dataHoraOperacao.format(formatter);
+        return entidadeCredito.getIdentificador() + "-" 
+        + entidadeDebito.getIdentificador() + "-" 
+        + (acao != null ? acao.getIdentificador() : tituloDivida.getIdentificador()) + "-" 
+        + dataFormatada;
     }
 
     //metodos get e set
