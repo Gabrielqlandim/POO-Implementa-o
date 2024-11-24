@@ -44,14 +44,14 @@ public class RepositorioTituloDivida extends RepositorioGeral {
 	}
 
 	public boolean alterar(TituloDivida tituloDivida) {
-		if(buscar(tituloDivida.getIdentificador())==null){
+		if(buscar(tituloDivida.getIdentificador()) == null){
 			return false;
 		}
 		return dao.alterar(tituloDivida);
 	}
 
 	public boolean excluir(int identificador) {
-		if(buscar(identificador)==null){
+		if(buscar(identificador) == null){
 			return false;
 		}
 		return dao.excluir(String.valueOf(identificador));

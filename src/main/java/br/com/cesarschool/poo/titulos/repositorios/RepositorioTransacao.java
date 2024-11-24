@@ -21,6 +21,7 @@ import java.util.List;
  * A busca deve retornar um array de transa��es cuja entidadeCredito tenha identificador igual ao
  * recebido como par�metro.  
  */
+
 public class RepositorioTransacao extends RepositorioGeral{
 	
 	public RepositorioTransacao() {
@@ -57,6 +58,7 @@ public class RepositorioTransacao extends RepositorioGeral{
 		}
 		return result.toArray(new Transacao[0]);
 	}
+	
 	public Transacao[] buscarPorEntidadeDevedora(int identificadorEntidadeDebito){
 		List<Transacao> result = new ArrayList<>();
 		Transacao[] transacoes = (Transacao[]) dao.buscarTodos();
