@@ -11,5 +11,5 @@ public abstract class RepositorioGeral {
     }
 
     protected abstract Class<?> getClasseEntidade();
-
+    
 }
