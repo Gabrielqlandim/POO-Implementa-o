@@ -12,8 +12,4 @@ public abstract class RepositorioGeral {
 
     protected abstract Class<?> getClasseEntidade();
 
-    //fiz esse emtodo genero para buscar os objetos do dao. busca todos
-    protected Object[] buscarTodos(){
-        return dao.buscarTodos();
-    }
 }
