@@ -11,5 +11,9 @@ public abstract class RepositorioGeral {
     }
 
     protected abstract Class<?> getClasseEntidade();
+
+    public DAOSerializadorObjetos getDao () {
+        return dao;
+    }
     
 }

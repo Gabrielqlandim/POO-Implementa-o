@@ -27,7 +27,7 @@ public class Ordenador {
         while (i < comps.length && troca) {
             troca = false;
             for (int j = 0; j < comps.length-1-i; j++) {
-                if ((comps[j].compararCom(comps[j+1]) > 0)) {
+                if ((comps[j].comparar(comps[j+1]) > 0)) {
                     Comparavel aux = comps[j];
                     comps[j] = comps[j+1];
                     comps[j+1] = aux;

@@ -22,7 +22,7 @@ import br.gov.cesarschool.poo.daogenerico.Entidade;
  */ 
 public class Transacao extends Entidade implements Comparavel {
     @Override
-    public int compararCom(Comparavel outro) {
+    public int comparar(Comparavel outro) {
         if (!(outro instanceof Transacao)) {
             throw new IllegalArgumentException("O objeto a ser comparado não é uma instância de Transacao.");
         }
